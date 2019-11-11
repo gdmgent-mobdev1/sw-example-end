@@ -8,6 +8,8 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const chalk = require('chalk');
+const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin');
+const WebpackPwaManifest = require('webpack-pwa-manifest');
 
 module.exports = (env, argv) => {
   // check if we are in development mode or not
@@ -81,6 +83,27 @@ module.exports = (env, argv) => {
       new ProgressBarPlugin({
         format: `  build [:bar] ${chalk.green.bold(':percent')} (:elapsed seconds)`,
         clear: false,
+      }),
+      new ServiceWorkerWebpackPlugin({
+        entry: path.join(__dirname, 'src/scripts/sw.js'),
+        excludes: ['**/.*', '**/*.map', '*.html'],
+        filename: 'sw.js',
+      }),
+      new WebpackPwaManifest({
+        name: 'My Progressive Web App',
+        short_name: 'MyPWA',
+        description: 'My awesome Progressive Web App!',
+        background_color: '#ffffff',
+        icons: [
+          {
+            src: path.resolve('src/images/icons/android-chrome-512x512.png'),
+            size: '512x512',
+          },
+          {
+            src: path.resolve('src/images/icons/android-chrome-192x192.png'),
+            size: '192x192',
+          },
+        ],
       }),
     ],
 
