@@ -1,8 +1,8 @@
 {
-  "name": "1920-mobdev1-code-template",
+  "name": "sw-example",
   "version": "1.0.0",
   "private": true,
-  "description": "Code Template Mobile Development I",
+  "description": "The Service Workers Example (end)",
   "scripts": {
     "dev": "webpack-dev-server --mode development --open",
     "build": "webpack --mode production"
